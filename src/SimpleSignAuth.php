@@ -26,6 +26,7 @@ class SimpleSignAuth
 
     public function makeSign($time, $params = [])
     {
+    	$params = $this->argSort($params);
         $params = json_encode($params, 1);
         $sign   = md5(md5($time . $params . $this->signKey));
 
@@ -53,5 +54,12 @@ class SimpleSignAuth
     {
         return $this->error;
     }
+
+	public function argSort($para) {
+		ksort($para);
+		reset($para);
+
+		return $para;
+	}
 
 }
